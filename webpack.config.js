@@ -15,7 +15,7 @@ const commonConfig = {
 };
 
 
-module.exports = function(env) {
+module.exports = function (env) {
   console.log('env', env);
 
   return commonConfig;
