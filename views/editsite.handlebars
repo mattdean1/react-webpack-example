@@ -1,0 +1,129 @@
+<div class="row" style="text-align:center">
+  <div class="col s12 m3">
+    <a class="btn" href="/site/{{profile.profile.name}}">Back</a>
+  </div>
+  <div class="col s12 m6">
+    <h1>{{profile.profile.name}}</h1>
+    <div class="hide" id="profileid">{{profile._id}}</div>
+    <div class="hide" id="ratingsid">{{ratings._id}}</div>
+  </div>
+</div>
+
+<div class="row" style="text-align:center">
+  <div class="col s3">
+    <table id="profiletable">
+      <tr>
+        <th colspan="2">Facility Profile</th>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td field="profile.profile.name"></td>
+      </tr>
+      <tr>
+        <td>Zone</td>
+        <td field="profile.profile.zone"></td>
+      </tr>
+      <tr>
+        <td>Location - City</td>
+        <td field="profile.profile.location-city"></td>
+      </tr>
+      <tr>
+        <td>Location - Country</td>
+        <td field="profile.profile.location-country"></td>
+      </tr>
+      <tr>
+        <td>Location - Latitude</td>
+        <td field="profile.profile.location-lat"></td>
+      </tr>
+      <tr>
+        <td>Location - Longitude</td>
+        <td field="profile.profile.location-long"></td>
+      </tr>
+      <tr>
+        <td>Uptime Rating</td>
+        <td field="ratings.tierrating.minimum"></td>
+      </tr>
+      <tr>
+        <td>Facility Weight</td>
+        <td field="profile.principle.total"></td>
+      </tr>
+      <tr>
+        <td>Sq Feet Used</td>
+        <td field="profile.profile.sqfeet-used"></td>
+      </tr>
+      <tr>
+        <td>Sq Feet Total</td>
+        <td field="profile.profile.sqfeet-total"></td>
+      </tr>
+      <tr>
+        <td>Limiting Factor</td>
+        <td field="profile.profile.limitingfactor"></td>
+      </tr>
+    </table>
+  </div>
+
+
+  <div class="col s6">
+      <canvas id="{{profile.profile.name}}" width="400" height="300"></canvas>
+  </div>
+
+  <div class="col s3">
+    <table id="principletable">
+      <tr>
+        <th colspan="2">Facility Principle</th>
+      </tr>
+      <tr>
+        <td>Outage History</td>
+        <td field="profile.principle.outagehistory"></td>
+      </tr>
+      <tr>
+        <td>Physical Security</td>
+        <td field="profile.principle.physicalsecurity"></td>
+      </tr>
+      <tr>
+        <td>Geographical Risk</td>
+        <td field="profile.principle.geographicalrisk"></td>
+      </tr>
+      <tr>
+        <td>DR Alignment</td>
+        <td field="profile.principle.alignment-dra"></td>
+      </tr>
+      <tr>
+        <td>Facility Capacity</td>
+        <td field="profile.principle.capacity"></td>
+      </tr>
+      <tr>
+        <td>Business Strategy Alignment</td>
+        <td field="profile.principle.alignment-business"></td>
+      </tr>
+      <tr>
+        <td>Operational Support Expectations</td>
+        <td field="profile.principle.support-expectations"></td>
+      </tr>
+      <tr>
+        <td>Flexibility/Agility</td>
+        <td field="profile.principle.flexibility"></td>
+      </tr>
+      <tr>
+        <td>Latency Alignment</td>
+        <td field="profile.principle.alignment-latency"></td>
+      </tr>
+      <tr>
+        <td>Environmental Strategy</td>
+        <td field="profile.principle.environmental"></td>
+      </tr>
+      <tr>
+        <td>Support Services</td>
+        <td field="profile.principle.support-services"></td>
+      </tr>
+      <tr>
+        <td>Financials</td>
+        <td field="profile.principle.financials"></td>
+      </tr>
+      <tr>
+        <td>Total Score</td>
+        <td field="profile.principle.total"></td>
+      </tr>
+    </table>
+  </div>
+</div>

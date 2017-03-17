@@ -1,0 +1,147 @@
+<div class="row" style="text-align:center">
+  <div class="col s12 m3">
+    <a class="btn" href="/">Back</a>
+    <!-- <a class="btn" href="/site/edit/{{profile.profile.name}}">Edit</a> -->
+  </div>
+  <div class="col s12 m6">
+    <h1>{{profile.profile.name}}</h1>
+  </div>
+</div>
+
+<div class="row" style="text-align:center">
+  <div class="col s12 m3">
+    <table id="profiletable">
+      <tr>
+        <th colspan="2">Facility Profile</th>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td>{{profile.profile.name}}</td>
+      </tr>
+      <tr>
+        <td>Zone/Location</td>
+        <td>{{profile.profile.zone}}/{{profile.profile.location-country}}</td>
+      </tr>
+      <tr>
+        <td>Uptime Rating</td>
+        <td id="minrating">{{ratings.tierrating.minimum}}</td>
+      </tr>
+      <tr>
+        <td>Facility Weight</td>
+        <td>{{profile.principle.total}}</td>
+      </tr>
+      <tr>
+        <td>Used/Total Sq'</td>
+        <td>{{profile.profile.sqfeet-used}}/{{profile.profile.sqfeet-total}}</td>
+      </tr>
+      <tr>
+        <td>Limiting Factor</td>
+        <td>{{profile.profile.limitingfactor}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="col s12 m6">
+      <canvas id="{{profile.profile.name}}" width="400" height="300"></canvas>
+      <div class="row">
+        <div class="col s8 hide-on-small-only">
+          <select>
+            <!-- to be populated by js -->
+          </select>
+        </div>
+        <div class="col s4 hide-on-small-only">
+          <a href="/site/compare/{{profile.profile.name}}" class="btn" style="margin-top:5px"> Compare </a>
+        </div>
+      </div>
+  </div>
+
+  <div class="col s12 m3">
+    <table id="principletable">
+      <tr>
+        <th colspan="2">Facility Principle</th>
+      </tr>
+      <tr>
+        <td>Outage History</td>
+        <td>{{profile.principle.outagehistory}}</td>
+      </tr>
+      <tr>
+        <td>Physical Security</td>
+        <td>{{profile.principle.physicalsecurity}}</td>
+      </tr>
+      <tr>
+        <td>Geographical Risk</td>
+        <td>{{profile.principle.geographicalrisk}}</td>
+      </tr>
+      <tr>
+        <td>DR Alignment</td>
+        <td>{{profile.principle.alignment-dra}}</td>
+      </tr>
+      <tr>
+        <td>Facility Capacity</td>
+        <td>{{profile.principle.capacity}}</td>
+      </tr>
+      <tr>
+        <td>Business Strategy Alignment</td>
+        <td>{{profile.principle.alignment-business}}</td>
+      </tr>
+      <tr>
+        <td>Operational Support Expectations</td>
+        <td>{{profile.principle.support-expectations}}</td>
+      </tr>
+      <tr>
+        <td>Flexibility/Agility</td>
+        <td>{{profile.principle.flexibility}}</td>
+      </tr>
+      <tr>
+        <td>Latency Alignment</td>
+        <td>{{profile.principle.alignment-latency}}</td>
+      </tr>
+      <tr>
+        <td>Environmental Strategy</td>
+        <td>{{profile.principle.environmental}}</td>
+      </tr>
+      <tr>
+        <td>Support Services</td>
+        <td>{{profile.principle.support-services}}</td>
+      </tr>
+      <tr>
+        <td>Financials</td>
+        <td>{{profile.principle.financials}}</td>
+      </tr>
+      <tr>
+        <td>Total Score</td>
+        <td>{{profile.principle.total}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12 m10 offset-m1 l6 offset-l3">
+    <ul class="collapsible" data-collapsible="accordion">
+      {{#each recommendations}}
+          <li>
+            <div class="collapsible-header">
+                <div class="recommendationpriority">{{this.priority}}</div>
+                <div class="recommendationcategory">{{this.findingcategory}}</div>
+                {{this.keyfinding}}
+            </div>
+            <div class="collapsible-body">
+              <p>
+                <b>Impact:</b>
+                <br />
+                {{this.impact}}
+              </p>
+
+              <p>
+                <b>Recommendation:</b>
+                <br />
+                {{this.recommendation}}
+              </p>
+
+            </div>
+          </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>

@@ -1,16 +1,16 @@
 const path = require('path');
 
-const PAGES = {
-  page1: path.join(__dirname, 'src/react-pages/page1.js'),
+const PATHS = {
+  homepage: path.join(__dirname, 'src/react-pages/homepage.jsx'),
 };
 
 const commonConfig = {
   entry: {
-    page1: PAGES.page1,
+    homepage: PATHS.homepage,
   },
   output: {
     path: path.join(__dirname, 'build/public/js/bundles'),
-    filename: '[name].js',
+    filename: '[name].bundle.js',
   },
   module: {
     loaders: [{
