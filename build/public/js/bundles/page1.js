@@ -68,10 +68,13 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-console.log("Hello Webpack");
+"use strict";
 
+
+var greeting = 'Hello Webpack';
+console.log(greeting);
 
 /***/ })
 /******/ ]);

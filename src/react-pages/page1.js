@@ -1,1 +1,2 @@
-console.log('Hello Webpack');
+const greeting = 'Hello Webpack';
+console.log(greeting);

@@ -12,6 +12,13 @@ const commonConfig = {
     path: path.join(__dirname, 'build/public/js/bundles'),
     filename: '[name].js',
   },
+  module: {
+    loaders: [{
+      test: /\.jsx?$/,
+      include: path.join(__dirname, 'src'),
+      loaders: ['babel-loader'],
+    }],
+  },
 };
 
 
