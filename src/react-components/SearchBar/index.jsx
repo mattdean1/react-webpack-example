@@ -32,7 +32,7 @@ class SearchBar extends React.Component {
       suggestions: [],
     };
 
-    this.fuse = new Fuse(this.props.searchdata, this.props.searchoptions);
+    this.fuse = new Fuse(this.props.data, this.props.options);
 
     this.onChange = this.onChange.bind(this);
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
@@ -45,7 +45,7 @@ class SearchBar extends React.Component {
   onSuggestionsFetchRequested({ value }) {
     let results = [];
     if (value === '') {
-      results = this.props.searchdata;
+      results = this.props.data;
     } else {
       results = this.fuse.search(value);
     }
@@ -95,8 +95,8 @@ class SearchBar extends React.Component {
 // can pass custom validator to arrayOf once we are sure of the datatype
 SearchBar.propTypes = {
     // props function that updates articles in CategoriesList
-  searchdata: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  searchoptions: React.PropTypes.object,
+  data: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  options: React.PropTypes.object.isRequired,
 };
 
 export default SearchBar;
