@@ -13,8 +13,15 @@ class Map extends Component {
       lat: 51.505,
       lng: -0.09,
       zoom: 13,
+      displaydata: this.props.data,
     };
   }
+
+ componentWillReceiveProps(nextProps) {
+   this.setState({
+     displaydata: nextProps.data,
+   });
+ }
 
   render() {
     const position = [this.state.lat, this.state.lng];
@@ -27,7 +34,7 @@ class Map extends Component {
             accessToken={accessToken}
             maxZoom={18}
           />
-          <MapMarkerLayer data={this.props.data} />
+        <MapMarkerLayer data={this.state.displaydata} />
         </LeafletMap>
       </div>
     );

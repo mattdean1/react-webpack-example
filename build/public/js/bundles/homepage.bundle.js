@@ -25786,7 +25786,28 @@ var SearchableFilteredMap = function (_React$Component) {
   function SearchableFilteredMap(props) {
     _classCallCheck(this, SearchableFilteredMap);
 
-    return _possibleConstructorReturn(this, (SearchableFilteredMap.__proto__ || Object.getPrototypeOf(SearchableFilteredMap)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (SearchableFilteredMap.__proto__ || Object.getPrototypeOf(SearchableFilteredMap)).call(this, props));
+
+    _this.state = {
+      filtereddata: _this.props.data,
+      displaydata: _this.props.data
+    };
+
+    _this.updateDisplayData = function (data) {
+      _this.setState({
+        displaydata: data
+      });
+    };
+
+    _this.processSearchResult = function (results) {
+      _this.updateDisplayData(results);
+    };
+
+    _this.processFilterResult = function (checkedfilters) {
+      var results = [];
+      _this.updateDisplayData(_this.state.filtereddata);
+    };
+    return _this;
   }
 
   _createClass(SearchableFilteredMap, [{
@@ -25795,19 +25816,19 @@ var SearchableFilteredMap = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_index2.default, { data: this.props.data, height: this.props.mapheight }),
+        _react2.default.createElement(_index2.default, { data: this.state.displaydata, height: this.props.mapheight }),
         _react2.default.createElement(
           'div',
           { className: 'row' },
           _react2.default.createElement(
             'div',
             { className: 'col s3' },
-            _react2.default.createElement(_index6.default, { options: this.props.filteroptions })
+            _react2.default.createElement(_index6.default, { options: this.props.filteroptions, processResult: this.processFilterResult })
           ),
           _react2.default.createElement(
             'div',
             { className: 'col s9' },
-            _react2.default.createElement(_index4.default, { data: this.props.data, options: this.props.searchoptions })
+            _react2.default.createElement(_index4.default, { data: this.state.filtereddata, options: this.props.searchoptions, processResult: this.processSearchResult })
           )
         )
       );
@@ -25845,9 +25866,69 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var FilterBox = function FilterBox(props) {
   return _react2.default.createElement(
-    'div',
+    "div",
     null,
-    'Filterbox'
+    _react2.default.createElement(
+      "div",
+      null,
+      "Filterbox"
+    ),
+    _react2.default.createElement(
+      "form",
+      null,
+      _react2.default.createElement(
+        "h5",
+        null,
+        "Type"
+      ),
+      _react2.default.createElement(
+        "p",
+        null,
+        _react2.default.createElement("input", { type: "checkbox" }),
+        "Datacenter"
+      ),
+      _react2.default.createElement(
+        "p",
+        null,
+        _react2.default.createElement("input", { type: "checkbox" }),
+        "Elanco"
+      ),
+      _react2.default.createElement(
+        "p",
+        null,
+        _react2.default.createElement("input", { type: "checkbox" }),
+        "Pharma"
+      ),
+      _react2.default.createElement(
+        "p",
+        null,
+        _react2.default.createElement("input", { type: "checkbox" }),
+        "Other"
+      ),
+      _react2.default.createElement(
+        "h5",
+        null,
+        "Zone"
+      ),
+      _react2.default.createElement(
+        "p",
+        null,
+        _react2.default.createElement("input", { type: "checkbox" }),
+        "Zone 1"
+      ),
+      _react2.default.createElement(
+        "p",
+        null,
+        _react2.default.createElement("input", { type: "checkbox" }),
+        "Zone 1"
+      ),
+      _react2.default.createElement(
+        "p",
+        null,
+        _react2.default.createElement("input", { type: "checkbox" }),
+        "Zone 1"
+      )
+    )
   );
 };
 
@@ -25888,33 +25969,43 @@ var MapMarkerLayer = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (MapMarkerLayer.__proto__ || Object.getPrototypeOf(MapMarkerLayer)).call(this, props));
 
-    _this.markers = props.data.map(function (datacenter) {
-      var latLng = [parseFloat(datacenter['location-lat']), parseFloat(datacenter['location-long'])];
-      console.log(latLng);
-      return _react2.default.createElement(
-        _reactLeaflet.Marker,
-        { position: latLng },
-        _react2.default.createElement(
-          _reactLeaflet.Popup,
-          null,
-          _react2.default.createElement(
-            'a',
-            { href: '/site/' + encodeURIComponent(datacenter.name) },
-            datacenter.name
-          )
-        )
-      );
-    });
+    _this.state = {
+      displaydata: _this.props.data
+    };
     return _this;
   }
 
   _createClass(MapMarkerLayer, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      this.setState({
+        displaydata: nextProps.data
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var markers = this.state.displaydata.map(function (datacenter) {
+        var latLng = [parseFloat(datacenter['location-lat']), parseFloat(datacenter['location-long'])];
+        return _react2.default.createElement(
+          _reactLeaflet.Marker,
+          { position: latLng, key: datacenter.name },
+          _react2.default.createElement(
+            _reactLeaflet.Popup,
+            null,
+            _react2.default.createElement(
+              'a',
+              { href: '/site/' + encodeURIComponent(datacenter.name) },
+              datacenter.name
+            )
+          )
+        );
+      });
+
       return _react2.default.createElement(
         _reactLeaflet.LayerGroup,
         null,
-        this.markers
+        markers
       );
     }
   }]);
@@ -25973,12 +26064,20 @@ var Map = function (_Component) {
     _this.state = {
       lat: 51.505,
       lng: -0.09,
-      zoom: 13
+      zoom: 13,
+      displaydata: _this.props.data
     };
     return _this;
   }
 
   _createClass(Map, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      this.setState({
+        displaydata: nextProps.data
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var position = [this.state.lat, this.state.lng];
@@ -25994,7 +26093,7 @@ var Map = function (_Component) {
             accessToken: accessToken,
             maxZoom: 18
           }),
-          _react2.default.createElement(_index2.default, { data: this.props.data })
+          _react2.default.createElement(_index2.default, { data: this.state.displaydata })
         )
       );
     }
@@ -26092,7 +26191,6 @@ var SearchBar = function (_React$Component) {
   }
 
   // Autosuggest will call this function every time you need to update suggestions.
-  // You already implemented this logic above, so just use it.
 
 
   _createClass(SearchBar, [{
@@ -26109,6 +26207,7 @@ var SearchBar = function (_React$Component) {
       this.setState({
         suggestions: results
       });
+      this.props.processResult(results);
     }
 
     // Autosuggest will call this function every time you need to clear suggestions.
@@ -47260,7 +47359,7 @@ var datacenters = [{
   'location-long': '-86.1581'
 }];
 
-var searchoptions = { keys: ['name'] };
+var searchoptions = { keys: ['name'], minMatchCharLength: 1 };
 
 var filteroptions = {
   zone: ['Zone 1', 'Zone 2', 'Zone 3'],

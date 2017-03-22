@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import SearchableFilteredMap from '../react-components/SearchableFilteredMap/index.jsx';
 
-const datacenters = [
+let datacenters = [
   {
     name: '141',
     'location-lat': '39.7684',
@@ -36,7 +36,8 @@ const datacenters = [
   },
 ];
 
-const searchoptions = { keys: ['name'] };
+
+const searchoptions = { keys: ['name'], minMatchCharLength: 1 };
 
 const filteroptions = {
   zone: ['Zone 1', 'Zone 2', 'Zone 3'],

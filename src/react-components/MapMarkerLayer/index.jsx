@@ -5,11 +5,22 @@ class MapMarkerLayer extends Component {
   constructor(props) {
     super(props);
 
-    this.markers = props.data.map((datacenter) => {
+    this.state = {
+      displaydata: this.props.data,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      displaydata: nextProps.data,
+    });
+  }
+
+  render() {
+    const markers = this.state.displaydata.map((datacenter) => {
       const latLng = [parseFloat(datacenter['location-lat']), parseFloat(datacenter['location-long'])];
-      console.log(latLng);
       return (
-        <Marker position={latLng}>
+        <Marker position={latLng} key={datacenter.name}>
           <Popup>
             <a href={`/site/${encodeURIComponent(datacenter.name)}`}>
               {datacenter.name}
@@ -18,12 +29,10 @@ class MapMarkerLayer extends Component {
         </Marker>
       );
     });
-  }
 
-  render() {
     return (
       <LayerGroup>
-        {this.markers}
+        {markers}
       </LayerGroup>
     );
   }
