@@ -9,8 +9,9 @@ class SearchableFilteredMap extends React.Component {
     super(props);
 
     this.state = {
-      filtereddata: this.props.data,
-      displaydata: this.props.data,
+      data: [],
+      filtereddata: [],
+      displaydata: [],
     };
 
     this.updateDisplayData = (data) => {
@@ -27,6 +28,29 @@ class SearchableFilteredMap extends React.Component {
       const results = [];
       this.updateDisplayData(this.state.filtereddata);
     };
+
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.componentWillUnmount = this.componentWillUnmount.bind(this);
+    this.getData = this.getData.bind(this);
+  }
+
+  componentDidMount() {
+    this.getData((result) => {
+      this.setState({
+        data: result,
+        displaydata: result,
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this.serverRequest.abort();
+  }
+
+  getData(callback) {
+    this.serverRequest = $.get(this.props.source, (result) => {
+      return callback(result);
+    });
   }
 
   render() {
@@ -38,7 +62,7 @@ class SearchableFilteredMap extends React.Component {
             <FilterBox options={this.props.filteroptions} processResult={this.processFilterResult} />
           </div>
           <div className="col s9">
-            <SearchBar data={this.state.filtereddata} options={this.props.searchoptions} processResult={this.processSearchResult} />
+            <SearchBar data={this.state.data} options={this.props.searchoptions} processResult={this.processSearchResult} />
           </div>
         </div>
       </div>
@@ -47,7 +71,7 @@ class SearchableFilteredMap extends React.Component {
 }
 
 SearchableFilteredMap.propTypes = {
-  data:           React.PropTypes.array.isRequired,
+  source:         React.PropTypes.string.isRequired,
   searchoptions:  React.PropTypes.object.isRequired,
   filteroptions:  React.PropTypes.object.isRequired,
   mapheight:      React.PropTypes.number.isRequired,

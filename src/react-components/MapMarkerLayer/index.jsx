@@ -18,16 +18,19 @@ class MapMarkerLayer extends Component {
 
   render() {
     const markers = this.state.displaydata.map((datacenter) => {
-      const latLng = [parseFloat(datacenter['location-lat']), parseFloat(datacenter['location-long'])];
-      return (
-        <Marker position={latLng} key={datacenter.name}>
-          <Popup>
-            <a href={`/site/${encodeURIComponent(datacenter.name)}`}>
-              {datacenter.name}
-            </a>
-          </Popup>
-        </Marker>
-      );
+      if (!isNaN(parseFloat(datacenter.profile['location-lat'])) && !isNaN(parseFloat(datacenter.profile['location-long']))) {
+        const latLng = [parseFloat(datacenter.profile['location-lat']), parseFloat(datacenter.profile['location-long'])];
+        return (
+          <Marker position={latLng} key={datacenter.profile.name}>
+            <Popup>
+              <a href={`/site/${encodeURIComponent(datacenter.profile.name)}`}>
+                {datacenter.profile.name}
+              </a>
+            </Popup>
+          </Marker>
+        );
+      }
+      return null;
     });
 
     return (
